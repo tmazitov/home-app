@@ -23,13 +23,13 @@
                         <div class="trolley__all" > 
                             <div class="trolley_add_cont">
                                 <div class="add__item title">
-                                    <input ref="count" v-model="data.title" type="text" placeholder="Продукт" v-on:keyup.enter="() => {focusField('count')}">
+                                    <input id="add_item_title" v-model="data.title" type="text" placeholder="Продукт" v-on:keyup.enter="() => {focusField('count')}">
                                 </div>
                                 <div class="add__item count">
-                                    <input ref="count" v-model="data.count" type="text" placeholder="Кол." v-on:keyup.enter="() => {focusField('price')}">
+                                    <input id="add_item_count" v-model="data.count" type="text" placeholder="Кол." v-on:keyup.enter="() => {focusField('price')}">
                                 </div>
                                 <div class="add__item price">
-                                    <input ref="price" v-model="data.price" type="text" placeholder="Цена" v-on:keyup.enter="add">
+                                    <input id="add_item_price" v-model="data.price" type="text" placeholder="Цена" v-on:keyup.enter="add">
                                 </div>
                                 <div class="add__item button__cont" @click="add">
                                     <Icon class="button" icon="uil:plus" color="white" width="26" height="26" />
@@ -80,7 +80,7 @@ export default {
         })
 
         const focusField = (name) => {
-            this.$refs[name].$el.focus()
+            document.getElementById(`add_item_${name}`).focus()
         }
 
         const add = () => {
@@ -101,7 +101,9 @@ export default {
             if (data.price && data.price > 0) {
                 product["price"] = data.price
                 data.price = undefined
-            }
+            }  
+
+            focusField("title")
 
             data.products.push(product)
         }

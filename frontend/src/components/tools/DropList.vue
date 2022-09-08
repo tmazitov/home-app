@@ -1,11 +1,13 @@
 <template>
 <div class="droplist">
   <transition name="open" mode="out-in" >
-      <div class="list" v-if="isOpened" v-bind:style="`border-color:${borderColor}`">
+      <div class="list" v-if="isOpened" v-bind:style="`border-color:${borderColor()}`">
           <transition name="list__items">
             <span v-if="isShowItems">
               <div class="list_cont" v-if="!isEmpty">
-                <slot name="content"></slot>
+                <transition-group name="list__items" tag="div" v-show="$slots.content">
+                  <slot name="content"></slot>
+                </transition-group>
               </div>
               <div class="empty_list_cont" v-else >
                 Список пуст
@@ -23,13 +25,17 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import { TransitionGroup } from 'vue'
 export default {
     name: "DropList",
+    components:{
+      TransitionGroup
+    },
     props:{
       isEmpty: Boolean,
       borderColor: {
-        type: String,
-        default: "#C44536"
+        type: Function,
+        default: () => "#C44536"
       },
     },
     setup() {
@@ -65,14 +71,12 @@ export default {
 
 <style scoped>
 .droplist{
-    font-weight: 500;
-    color: snow;
-    min-height: 42px;
-    max-height: 500px;
-    max-width: 415px;
-    min-width: 210px;
-    overflow: hidden;
-    border-radius: 7px;
+  min-height: 42px;
+  max-height: 500px;
+  max-width: 415px;
+  min-width: 300px;
+  overflow: hidden;
+  border-radius: 7px;
 }
 .empty_list_cont{
     display: flex;
@@ -126,4 +130,6 @@ export default {
   opacity: 0;
   transform: translateY(30px);
 }
+
+
 </style>e

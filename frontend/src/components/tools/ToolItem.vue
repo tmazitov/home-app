@@ -1,12 +1,11 @@
 <template>
-    <div class="toollist__item" v-bind:style="`background: ${mainColor}`">
-        <div class="item__selector" v-bind:style="`background: ${secondColor}`">
+    <div class="toollist__item" v-bind:style="`background: ${mainColor()}`">
+        <div class="item__selector" v-bind:style="`background: ${secondColor()}`">
             <Icon 
                 :icon="`${icon}`" 
-                color="#C44536" 
+                :color="mainColor()" 
                 width="28" 
                 height="28" 
-                :horizontalFlip="true"
             />
         </div>
         <div class="item__title">{{title}}</div>
@@ -21,12 +20,12 @@ export default {
         title: String,
         icon: String,
         mainColor: {
-            type: String,
-            default: "#C44536"
+            type: Function,
+            default: () => "#C44536"
         },
         secondColor: {
-            type: String,
-            default: "#772E25"  
+            type: Function,
+            default: () => "#772E25"  
         }
     },
     components:{
@@ -37,6 +36,8 @@ export default {
 
 <style scoped>
 .toollist__item{
+    font-weight: 500;
+    color: snow;
     padding: 8px;
     display: grid;
     width: auto;

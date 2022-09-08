@@ -60,10 +60,6 @@ import { Icon } from '@iconify/vue';
 
 export default {
     name: "Trolley",
-    props:{
-        title: String,
-        icon: String
-    },
     components:{
         ToolItem,
         Product,
@@ -71,11 +67,10 @@ export default {
         DropList
     },
     setup() {
-
         var data = reactive({
             title: "",
-            count: undefined,
-            price: undefined,
+            count: "",
+            price: "",
             products : []
         })
 
@@ -83,26 +78,26 @@ export default {
             document.getElementById(`add_item_${name}`).focus()
         }
 
+        const clearFields = () => {
+            data.title = ""
+            data.count = ""
+            data.price = ""
+        }
+
         const add = () => {
             let product = {}
             
-            if (data.title.length > 2) {
-                product["title"] = data.title
-                data.title = ""
-            } else {
-                return
-            }
+            if (data.title.length <= 2) return
 
-            if (data.count && data.count > 0) {
-                product["count"] = data.count
-                data.count = undefined
-            }
+            product["title"] = data.title
 
-            if (data.price && data.price > 0) {
-                product["price"] = data.price
-                data.price = undefined
-            }  
+            if (data.count && isNaN(parseInt(data.count))) return
+            product["count"] = data.count || 1
+            
+            if (data.price && isNaN(parseInt(data.price))) return
+            product["price"] = data.price || -1
 
+            clearFields()
             focusField("title")
 
             data.products.push(product)

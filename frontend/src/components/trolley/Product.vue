@@ -7,7 +7,9 @@
     >   
         <div class="selector" v-bind:class="{
             active: isRemove
-        }"></div>
+        }">
+            <span class="iconify" data-icon="uil:arrow-right" data-width="23" data-height="23" ></span>
+        </div>
         <div class="title">{{title}}</div>
         <div v-if="price > 0" class="price">
             {{price}}₽
@@ -58,19 +60,24 @@ export default {
     color: black;
     font-weight: 400;
     display: grid;
-    grid-template-columns: 5px calc(100% - 5px - 14px - 55px) 55px;
+    grid-template-columns: 23px calc(100% - 23px - 14px - 55px) 55px;
     grid-column-gap: 7px;
     margin-bottom: 15px;
     animation: product .8s ease;
     position: relative;
 }
 
+.product > * {
+    display: flex;
+    align-items: center;
+}
+
 .with__price{
-    grid-template-columns: 5px calc(100% - 5px - 21px - 67px - 55px) 67px 55px;
+    grid-template-columns: 23px calc(100% - 23px - 21px - 67px - 55px) 67px 55px;
 }
 
 .selector{ 
-    background: #c44536;
+    color: #c44536;
     -moz-transition: all .3s ease;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
@@ -88,10 +95,10 @@ export default {
 
 .delete__button{
     height: 100%;
-    width: 19px;
+    width: 23px;
     color:white;
     background: #c44536;
-    border-radius: 5px;
+    border-radius: 23px;
     position: absolute;
     right: 0;
 }
